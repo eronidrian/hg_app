@@ -1,13 +1,12 @@
-from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import AuthenticationForm, UsernameField
-from django.forms import ModelChoiceField
-from django.template.defaultfilters import safe
 from datetime import datetime
 
-from .models import Player
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+from .models import Player, Point
 
 
 class NewUserForm(UserCreationForm):
@@ -49,7 +48,6 @@ class NewUserForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     username = UsernameField(
-        label='Přihlašovací jméno',
         widget=forms.TextInput(attrs={'autofocus': True})
     )
     password = forms.CharField(label='Heslo', widget=forms.PasswordInput, required=True)
@@ -59,7 +57,7 @@ class SubmitKill(forms.Form):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(SubmitKill, self).__init__(*args, **kwargs)
-        self.fields['victim'].queryset = Player.objects.exclude(user=self.user).exclude(lives=0).all()
+        self.fields['victim'].queryset = Player.objects.exclude(user=self.user).exclude(lives=0)
 
     victim = forms.ModelChoiceField(Player.objects.none(), label='Oběť', empty_label="Vyber, koho jsi zabil(a)")
     stealth_kill = forms.BooleanField(label='Stealth kill', required=False)
@@ -67,17 +65,22 @@ class SubmitKill(forms.Form):
 
 class SubmitPoint(forms.Form):
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
+        user = kwargs.pop('user', None)
+
         super(SubmitPoint, self).__init__(*args, **kwargs)
-        self.fields['point_id'].queryset = self.user.player.points.exclude(picked_up__user_id__in=[self.user.id]). \
-            filter(opening_time__lt=datetime.now()).all()
 
-    point_id = ModelChoiceField(queryset=Player.objects.none(), label="ID pointu",
-                                empty_label="Vyber, jaký point jsi našel/našla", required=False,
-                                widget=forms.Select(attrs={'id': 'id_point'}))
+        self.fields['point_id'].queryset = user.player.points.exclude(picked_up__user=user). \
+            filter(opening_time__lt=datetime.now())
+
+    point_id = forms.ModelChoiceField(queryset=Point.objects.none(), label="ID pointu",
+                                      empty_label="Vyber, jaký point jsi našel/našla", required=True,
+                                      widget=forms.Select(attrs={'id': 'id_point'}))
+
+    latitude = forms.FloatField(widget=forms.HiddenInput())
+    longitude = forms.FloatField(widget=forms.HiddenInput())
 
 
-class MyModelChoiceField(ModelChoiceField):
+class MyModelChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         return f"Balíček #{obj.id}"
 
@@ -86,8 +89,8 @@ class SubmitPackage(forms.Form):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(SubmitPackage, self).__init__(*args, **kwargs)
-        self.fields['package_id'].queryset = self.user.player.packages.exclude(picked_up=self.user.player). \
+        self.fields['package'].queryset = self.user.player.packages.exclude(picked_up=self.user.player). \
             filter(opening_time__lt=datetime.now()).all()
 
-    package_id = MyModelChoiceField(queryset=Player.objects.none(), label="ID balíčku",
-                                    empty_label="Vyber, jaký balíček jsi našel/našla", required=False)
+    package = MyModelChoiceField(queryset=Player.objects.none(), label="ID balíčku",
+                                 empty_label="Vyber, jaký balíček jsi našel/našla", required=False)

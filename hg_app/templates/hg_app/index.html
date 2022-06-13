@@ -12,7 +12,7 @@
             <div class="container">
                 {% if player_lives > 0 %}
                     <div class="container py-5">
-                    <h4>Aktuální počet životů: <b>{{ player_lives }}</b></h4>
+                        <h4>Aktuální počet životů: <b>{{ player_lives }}</b></h4>
 
                     </div>
                     <div class="container py-5">
@@ -69,8 +69,10 @@
                     <div class="container py-5">
                         <h4>Ověřit nalezený point</h4>
                         <form method="POST" action="{% url 'hg_app:submit_point' %}" id="post-form">
+                            {% csrf_token %}
                             {{ submit_point_form|crispy }}
-                            <button class="btn btn-primary" type="submit" aria-describedby="pointHelpBlock">Ověřit
+                            <button id="submit_point_button" class="btn btn-primary" aria-describedby="pointHelpBlock">
+                                Ověřit
                             </button>
                             <small id="pointHelpBlock" class="form-text text-muted">
                                 Ověření probíhá na základě polohy. Point zadávej v bezprostřední vzdálenosti uvedených
@@ -140,10 +142,17 @@
                 {% endfor %}
                 {% for point in points %}
                     znacka = JAK.mel("div");
-                    obrazek = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-blue.png"});
+                    obrazek = JAK.mel("img", {src: SMap.CONFIG.img + "/marker/drop-blue.png"});
                     znacka.appendChild(obrazek);
 
-                    popisek = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white"});
+                    popisek = JAK.mel("div", {}, {
+                        position: "absolute",
+                        left: "0px",
+                        top: "2px",
+                        textAlign: "center",
+                        width: "22px",
+                        color: "white"
+                    });
                     popisek.innerHTML = "#{{ point.id }}";
                     znacka.appendChild(popisek);
 
@@ -156,7 +165,7 @@
                         title: "Point #{{ point.id }}",
                         url: znacka,
                     };
-                    coords = SMap.Coords.fromWGS84({{point.long}}, {{point.lat}});
+                    coords = SMap.Coords.fromWGS84({{point.location.x}}, {{point.location.y}});
                     marker = new SMap.Marker(coords, {{point.id}}, options);
                     marker.decorate(SMap.Marker.Feature.Card, card);
                     packages.addMarker(marker);

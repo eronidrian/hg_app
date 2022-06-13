@@ -1,19 +1,16 @@
-from django.db.models.functions import Coalesce
-from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.gis.geos import Point as GPoint
 from django.shortcuts import render, redirect
-from .forms import *
+from datetime import datetime
+
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
-from .models import Kill, Player, Package, Message, Point
-from django.contrib.auth.models import User
-from datetime import datetime, timedelta
-from .values import *
-from django.db.models import CharField, Value
-from django.contrib.gis.geos import Point as P
-from django.contrib.gis.db.models.functions import Distance as DistanceDBFunction
-from django.contrib.gis.measure import Distance as DistanceMeasure
+from django.shortcuts import render, redirect
 from geopy.distance import distance as geopy_distance
+
+from .forms import *
+from .models import Kill, Player, Package, Point
+from .values import *
 
 
 def index(request, submit_kill_form=None, submit_package_form=None, submit_point_form=None):
@@ -24,12 +21,15 @@ def index(request, submit_kill_form=None, submit_package_form=None, submit_point
             submit_package_form = SubmitPackage(user=request.user)
         if submit_point_form is None:
             submit_point_form = SubmitPoint(user=request.user)
+
+        player = request.user.player
+
         player_lives = request.user.player.lives
-        packages = request.user.player.packages.exclude(picked_up=request.user.player). \
+        packages = player.packages.exclude(picked_up=player). \
+            filter(opening_time__lt=datetime.now()).order_by('opening_time').reverse()
+        points = player.points.exclude(picked_up__user_id__in=[request.user.id]). \
             filter(opening_time__lt=datetime.now()).order_by('opening_time').reverse().values()
-        points = request.user.player.points.exclude(picked_up__user_id__in=[request.user.id]). \
-            filter(opening_time__lt=datetime.now()).order_by('opening_time').reverse().values()
-        info_messages = request.user.player.messages.filter(time__lt=datetime.now()).order_by('time').reverse().all()
+        info_messages = player.messages.filter(time__lt=datetime.now()).order_by('time').reverse().all()
 
     return render(request=request, template_name='hg_app/index.html', context=locals())
 
@@ -42,8 +42,10 @@ def register_request(request):
             login(request, user)
             messages.success(request, "Registrace proběhla úspěšně.")
             return redirect("hg_app:index")
+
         messages.error(request, "Registrace selhala.")
-    form = NewUserForm()
+    else:
+        form = NewUserForm()
     return render(request=request, template_name="hg_app/register.html", context={"register_form": form})
 
 
@@ -62,7 +64,9 @@ def login_request(request):
                 messages.error(request, "Nesprávné přihlašovací jméno nebo heslo.")
         else:
             messages.error(request, "Nesprávné přihlašovací jméno nebo heslo.")
-    form = LoginForm()
+    else:
+        form = LoginForm()
+
     return render(request=request, template_name="hg_app/login.html", context={"login_form": form})
 
 
@@ -86,46 +90,53 @@ def submit_kill(request):
         messages.info(request, f"Kill zadán.")
     return index(request, submit_kill_form=submit_kill_form)
 
-
+@login_required
 def submit_package(request):
-    assert request.method == "POST"
+    if not request.method == "POST":
+        return redirect('/')
 
     submit_package_form = SubmitPackage(request.POST, user=request.user)
 
-    package = Package.objects.get(id=submit_package_form.data['package_id'])
-    package.picked_up = request.user.player
-    package.save()
+    if submit_package_form.is_valid():
+        package = submit_package_form.cleaned_data['package']
+        package.picked_up = request.user.player
+        package.save()
 
-    messages.info(request, f"Balíček zadán.")
+        messages.info(request, f"Balíček zadán.")
+        return redirect('/')
+
     return index(request, submit_package_form=submit_package_form)
 
-
+@login_required
 def submit_point(request):
-    assert request.method == "POST"
+    if not request.method == "POST":
+        return redirect('/')
 
-    submit_point_form = SubmitPoint(user=request.user)
-    request_point = request.POST.get('the_post')
-    lat = request.POST.get('lat')
-    long = request.POST.get('long')
-    user_location = (float(lat), float(long))
-    point = Point.objects.get(id=request_point)
-    point_location = (float(point.lat), float(point.long))
-    if point.picked_up.count() == point.max_number_of_visits:
-        messages.error(request,
-                       f"Point nemohl být ověřen. Už byl před tebou navštíven {point.max_number_of_visits}/{point.max_number_of_visits} lidí")
-    else:
-        dist = geopy_distance(user_location, point_location)
-        print(f"{user_location}\n\n")
-        print(f"{point_location}\n\n")
-        print(f"{dist.m}\n\n")
-        if dist.m <= MAX_DISTANCE_FROM_POINT:
-            point.picked_up.add(request.user.player)
-            point.save()
-            messages.info(request,
-                          f"Point úspěšně ověřen. Je teď navštíven {point.picked_up.count()}/{point.max_number_of_visits} lidí")
-        else:
+    submit_point_form = SubmitPoint(request.POST, user=request.user)
+
+    if submit_point_form.is_valid():
+        point = submit_point_form.cleaned_data['point_id']
+        lat = submit_point_form.cleaned_data['latitude']
+        long = submit_point_form.cleaned_data['longitude']
+
+        player_point = GPoint(long, lat, srid=4326)
+        distance_in_m = point.location.distance(player_point)*100000
+
+
+        if point.picked_up.count() == point.max_number_of_visits:
             messages.error(request,
-                           f"Nenacházíš se dostatečně blízko. Ověř si, že jsi na správném místě.")
+                           f"Point nemohl být ověřen. Už byl před tebou navštíven {point.max_number_of_visits}/{point.max_number_of_visits} lidí")
+        else:
+            if distance_in_m <= MAX_DISTANCE_FROM_POINT:
+                point.picked_up.add(request.user.player)
+                point.save()
+                messages.info(request,
+                              f"Point úspěšně ověřen. Je teď navštíven {point.picked_up.count()}/{point.max_number_of_visits} lidí")
+            else:
+                messages.error(request,
+                               f"Nenacházíš se dostatečně blízko. Ověř si, že jsi na správném místě.")
+
+        return redirect('/')
     return index(request, submit_point_form=submit_point_form)
 
 
@@ -136,7 +147,7 @@ def rules(request):
 def stats(request):
     kills = request.user.player.my_kills.all()
     kills_count = len(kills)
-    packages = Package.objects.filter(picked_up=request.user.player).all()
+    packages = Package.objects.filter(picked_up=request.user.player)
     packages_count = len(packages)
     points = Point.objects.filter(picked_up__user_id__in=[request.user.id]).all()
     points_count = len(points)

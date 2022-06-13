@@ -20,14 +20,12 @@ class MyDeathsAdmin(admin.TabularInline):
     verbose_name_plural = 'My deaths'
 
 
+@admin.register(Point)
 class PointAdmin(OSMGeoAdmin):
-    default_lon = -46
+    default_lon = 46
     default_lat = 17
     default_zoom = 15
-    readonly_field = 'location'
 
-
-admin.site.register(Point, PointAdmin)
 
 
 @admin.register(Player)
@@ -35,6 +33,8 @@ class PlayerAdmin(admin.ModelAdmin):
     search_fields = 'user__username',
     list_display = 'user', 'lives', 'score'
     list_filter = 'lives',
+
+    filter_horizontal = 'points',
 
     inlines = [MyKillsAdmin, MyDeathsAdmin]
 

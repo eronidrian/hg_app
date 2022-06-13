@@ -17,6 +17,9 @@ class Package(models.Model):
     def __str__(self):
         return f"Package #{self.id}"
 
+    class Meta:
+        ordering = 'opening_time',
+
 
 class Point(models.Model):
     lat = models.DecimalField(max_digits=9, decimal_places=7, verbose_name="latitude (N)")
@@ -28,12 +31,12 @@ class Point(models.Model):
     max_number_of_visits = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"Point #{self.id}"
+        return f"Bod #{self.id}"
 
-    def save(self, *args, **kwargs):
-        self.location.y = self.lat
-        self.location.x = self.long
-        super(Point, self).save(*args, **kwargs)
+    class Meta:
+        verbose_name = 'Bod'
+        verbose_name_plural = 'Body'
+
 
 
 class Message(models.Model):
