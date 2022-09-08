@@ -1,0 +1,61 @@
+{% extends "hg_app/header.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class="container">
+    {% if not user.is_authenticated %}
+    <div class="card my-4">
+        <div class="card-body">
+            <h4 class="card-title">Pro používání HG webové aplikace se musíš přihlásit</h4>
+        </div>
+    </div>
+    {% else %}
+    <div class="card my-4">
+        <div class="card-body">
+            <h2 class="card-title">Tvůj účet</h2>
+        </div>
+    </div>
+    <div class="card my-4" >
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Uživatelské jméno:</b> {{ user.player }} </li>
+                <li class="list-group-item"><b>Email:</b> {{ user.email }} </li>
+                <li class="list-group-item"><b>Profilový obrázek:</b></li>
+            {% if not user.player.photo %}
+                <li class="list-group-item"><i>nahraj si prosím profilový obrázek</i></li>
+            </ul>
+            {% else %}
+            </ul>
+                <img src="{{user.player.photo.url}}" class="card-img-top" style="width: 50rem;">
+            {% endif %}
+        </div>
+    </div>
+    <div class="card my-4">
+        <div class="card-body">
+            <h4 class="card-title">Změna hesla</h4>
+            <form method="POST" action="{% url 'hg_app:change_password' %}">
+                {% csrf_token %}
+                {{ password_change_form|crispy }}
+                <button class="btn btn-primary" type="submit">Změnit heslo</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card my-4">
+        <div class="card-body">
+            <h4 class="card-title">Změna profilového obrázku</h4>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'hg_app:profile_picture' %}">
+                {% csrf_token %}
+                {{ profile_picture_form|crispy }}
+                <button class="btn btn-primary" type="submit">Změnit profilový obrázek</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% include "hg_app/includes/footer.html" %}
+
+{% endblock %}

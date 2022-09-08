@@ -1,91 +1,120 @@
 {% extends 'hg_app/header.html' %}
 
 {% block content %}
-   <div class="container py-5">
-   {% if not user.is_authenticated %}
-            <h4>Pro používání HG webové aplikace se musíš přihlásit</h4>
-        {% else %}
-    <div class="container py-5">
-
-        <h2>Statistiky</h2>
+<div class="container">
+    {% if not user.is_authenticated %}
+    <div class="card my-4">
+        <div class="card-body">
+            <h4 class="card-title">Pro používání HG webové aplikace se musíš přihlásit</h4>
+        </div>
     </div>
-    <div class="container py-5">
+    {% else %}
 
-        <h4>Tvoje killy</h4>
-        <table class="table table-striped table-sm">
-            <th scope="col">Oběť</th>
-            <th scope="col">Čas</th>
-            <th scope="col">Stealth kill</th>
-            {% for kill in kills %}
+    <div class="card my-4">
+        <div class="card-body">
+            <h2 class="card-title">Statistiky</h2>
+        </div>
+    </div>
+    <div class="card my-4">
+        <div class="card-body">
+            <h4 class="card-title">Tvoje killy</h4>
+            <table class="table table-striped table-sm">
+                <th scope="col">Oběť</th>
+                <th scope="col">Čas</th>
+                <th scope="col">Stealth kill</th>
+                <th scope="col">Quest</th>
+                <th scope="col">Trofej</th>
+                {% for kill in kills %}
                 <tr>
                     <td>{{ kill.victim }}</td>
                     <td>{{ kill.time | date:'H:i' }}</td>
                     <td>
                         {% if kill.stealth_kill %}
-                            &#10003;
+                        &#10003;
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if kill.quest_kill %}
+                        &#10003;
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if kill.trophy_kill %}
+                        &#10003;
                         {% endif %}
                     </td>
                 </tr>
-            {% endfor %}
-         </table>
+                {% endfor %}
+            </table>
             <h5><b>Celkově: {{ kills.count }}</b></h5>
 
 
+        </div>
     </div>
 
-    <div class="container py-5">
+    <div class="card my-4">
+        <div class="card-body">
 
-        <h4>Tvoje balíčky</h4>
-        <table class="table table-striped table-sm">
-            <th scope="col">Balíček</th>
-            <th scope="col">Čas otevření</th>
-            {% for package in packages %}
+            <h4 class="card-title">Tvoje balíčky</h4>
+            <table class="table table-striped table-sm">
+                <th scope="col">Balíček</th>
+                <th scope="col">Čas otevření</th>
+                {% for package in packages %}
                 <tr>
                     <td>#{{ package.id }}</td>
                     <td>{{ package.opening_time | date:'H:i' }}</td>
                 </tr>
-            {% endfor %}
+                {% endfor %}
             </table>
             <h5><b>Celkově: {{ packages.count }}</b></h5>
+        </div>
     </div>
 
-   <div class="container py-5">
+    <div class="card my-4">
+        <div class="card-body">
 
-        <h4>Tvoje pointy</h4>
-        <table class="table table-striped table-sm">
-            <th scope="col">Point</th>
-            <th scope="col">Čas otevření</th>
-            {% for point in points %}
+
+            <h4 class="card-title">Tvoje pointy</h4>
+            <table class="table table-striped table-sm">
+                <th scope="col">Point</th>
+                <th scope="col">Čas otevření</th>
+                {% for point in points %}
                 <tr>
                     <td>#{{ point.id }}</td>
                     <td>{{ point.opening_time | date:'H:i' }}</td>
                 </tr>
-            {% endfor %}
+                {% endfor %}
             </table>
             <h5><b>Celkově: {{ points.count }}</b></h5>
+        </div>
     </div>
 
-    <div class="container py-5">
+    <div class="card my-4">
+        <div class="card-body">
 
-        <h4>Tvoje smrti</h4>
-        <table class="table table-striped table-sm">
-            <th scope="col">Útočník</th>
-            <th scope="col">Čas</th>
-            <th scope="col">Stealth kill</th>
-            {% for death in deaths %}
+
+            <h4 class="card-title">Tvoje smrti</h4>
+            <table class="table table-striped table-sm">
+                <th scope="col">Útočník</th>
+                <th scope="col">Čas</th>
+                <th scope="col">Stealth kill</th>
+                {% for death in deaths %}
                 <tr>
                     <td>{{ death.murderer }}</td>
                     <td>{{ death.time | date:'H:i' }}</td>
                     <td>
                         {% if death.stealth_kill %}
-                            &#10003;
+                        &#10003;
                         {% endif %}
                     </td>
                 </tr>
-            {% endfor %}
+                {% endfor %}
             </table>
             <h5><b>Celkově: {{ deaths.count }}</b></h5>
+        </div>
     </div>
-   </div>
-    {% endif %}
+</div>
+{% endif %}
+{% include "hg_app/includes/footer.html" %}
+
 {% endblock %}

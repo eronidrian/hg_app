@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from hg import settings
 from django.contrib.staticfiles.urls import static
@@ -17,6 +17,11 @@ urlpatterns = [
     path("stats/", views.stats, name="stats"),
     path("players/", views.players, name="players"),
     path("submit_point/", views.submit_point, name="submit_point"),
+    path("player_location/", views.player_location, name="player_location"),
+    path("submit_special/", views.submit_special, name="submit_special"),
+    path("account/", views.account, name="account"),
+    path("account/change_password", views.change_password, name="change_password"),
+    path("account/profile_picture", views.profile_picture, name="profile_picture")
 ]
 
 urlpatterns += staticfiles_urlpatterns()

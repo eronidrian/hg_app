@@ -1,19 +1,32 @@
 {% extends "hg_app/header.html" %}
 {% load crispy_forms_filters %}
 
-{% block content %}      
+{% block content %}
 
 {% load crispy_forms_tags %}
 
-<!--Login--> 
-<div class="container py-5">
-  <h1>Přihlášení</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{ login_form|crispy }}
-    <button class="btn btn-primary" type="submit">Přihlásit se</button>
-  </form>
-  <p class="text-center">Ještě nemáš účet? <a href="/register">Registruj se</a>.</p>
+<!--Login-->
+<div class="container">
+    <div class="card my-4">
+        <div class="card-body">
+            <h2 class="card-title">Přihlášení</h2>
+        </div>
+    </div>
+    <div class="card my-4">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                {{ login_form|crispy }}
+                <button class="btn btn-primary" type="submit">Přihlásit se</button>
+            </form>
+        </div>
+    </div>
+    <div class="card my-4">
+        <div class="card-body">
+            <p class="text-center">Ještě nemáš účet? <a href="/register">Registruj se</a>.</p>
+        </div>
+    </div>
 </div>
+{% include "hg_app/includes/footer.html" %}
 
 {% endblock %}

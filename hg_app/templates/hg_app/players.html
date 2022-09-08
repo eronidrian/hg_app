@@ -1,56 +1,60 @@
 {% extends 'hg_app/header.html' %}
 
 {% block content %}
-    <div class="container py-5">
-        {% if not user.is_authenticated %}
-            <h4>Pro používání HG webové aplikace se musíš přihlásit</h4>
-        {% else %}
-            <div class="container py-5">
-
-                <h2>Živí hráči</h2>
+<div class="container">
+    {% if not user.is_authenticated %}
+    <div class="card my-4">
+            <div class="card-body">
+            <h4 class="card-title">Pro používání HG webové aplikace se musíš přihlásit</h4>
+                </div>
             </div>
-            <div class="container py-5">
+    {% else %}
 
-                <table class="table table-striped">
-                    {% for player in players %}
-                        <tr>
-                            <td>{{ player }}</td>
-                            <td>
-                                {% if player.photo %}
-                                    <img src="{{ player.photo.url }}" height="100">
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-                <h5><b>Zbývá hráčů (kromě tebe): {{ players_count }}</b></h5>
+    <div class="card my-4">
+        <div class="card-body">
+            <h2 class="card-title">Hráči</h2>
+        </div>
+    </div>
+    <div class="card my-4">
+        <div class="card-body">
+            <h4 class="card-title">Živí hráči</h4>
+            <table class="table table-striped">
+                {% for player in players %}
+                <tr>
+                    <td>{{ player }}</td>
+                    <td>
+                        {% if player.photo %}
+                        <img src="{{ player.photo.url }}" height="100">
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <h5><b>Zbývá hráčů (kromě tebe): {{ players.count }}</b></h5>
+        </div>
+    </div>
 
+    <div class="card my-4">
+        <div class="card-body">
+            <h4 class="card-title">Mrtví hráči</h4>
+            <table class="table table-striped">
+                {% for dead_player in dead_players %}
+                <tr>
+                    <td>{{ dead_player }}</td>
+                    <td>
+                        {% if dead_player.photo %}
+                        <img src="{{ dead_player.photo.url }}" height="100">
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <h5><b>Už zemřelo hráčů: {{ dead_players.count }}</b></h5>
+        </div>
+    </div>
 
-            </div>
+    {% endif %}
+</div>
+{% include "hg_app/includes/footer.html" %}
 
-                <div class="container py-5">
-
-                <h2>Mrtví hráči</h2>
-            </div>
-            <div class="container py-5">
-
-                <table class="table table-striped">
-                    {% for dead_player in dead_players %}
-                        <tr>
-                            <td>{{ dead_player }}</td>
-                            <td>
-                                {% if dead_player.photo %}
-                                    <img src="{{ dead_player.photo.url }}" height="100">
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-                <h5><b>Už zemřelo hráčů: {{ dead_players_count }}</b></h5>
-
-
-            </div>
-
-            </div>
-        {% endif %}
 {% endblock %}

@@ -5,19 +5,45 @@
 
 {% block content %}
     {% load crispy_forms_tags %}
-    <div class="container py-5">
+    <div class="container">
         {% if not user.is_authenticated %}
-            <h4>Pro používání HG webové aplikace se musíš přihlásit</h4>
+        <div class="card my-4">
+            <div class="card-body">
+            <h4 class="card-title">Pro používání HG webové aplikace se musíš přihlásit</h4>
+                </div>
+            </div>
         {% else %}
-            <div class="container">
-                {% if player_lives > 0 %}
-                    <div class="container py-5">
-                    <h4>Aktuální počet životů: <b>{{ player_lives }}</b></h4>
-
+            {% if player_lives > 0 %}
+                {% if turn_off %}
+                    <div class="card my-4">
+                        <div class="card-body">
+                            <h4 class="card-title">Aplikace je aktuálně vypnutá. Můžeš měnit profilový obrázek, prohlížet statistiky..., ale k hernímu obsahu se nedostaneš</h4>
+                        </div>
                     </div>
-                    <div class="container py-5">
-                        <h4>Zprávy</h4>
-                        <table class="table table-striped">
+                {% else %}
+                    <div class="card my-4">
+                        <div class="card-body">
+                            {% if player_lives >= 2 %}
+                            <h4><span class="badge badge-success">Aktuální počet životů: <b>{{ player_lives }}</b></span>
+                            </h4>
+                            {% endif %}
+                            {% if player_lives == 1 %}
+                            <h4><span class="badge badge-warning">Aktuální počet životů: <b>{{ player_lives }}</b></span>
+                            </h4>
+                            {% endif %}
+                            <h6>Počet trofejí: {{ trophy_count }} (získané skóre se násobí {{ trophy_multiply }}x)</h6>
+                            {% if quest is not None %}
+                                <h6>Quest na hráče: {{ quest.user }}</h6>
+                            {% else %}
+                                <h6>Nemáš žádný quest</h6>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="card my-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Zprávy</h4>
+                        <table class="table table-striped table-hover">
 
                             {% for message in info_messages %}
                                 <tr>
@@ -27,8 +53,11 @@
                             {% endfor %}
                         </table>
                     </div>
-                    <div class="container py-5">
-                        <h4>Zadat kill</h4>
+                    </div>
+
+                    <div class="card my-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Zadat kill</h4>
                         <form method="POST" action="{% url 'hg_app:submit_kill' %}">
                             {% csrf_token %}
                             {{ submit_kill_form|crispy }}
@@ -37,17 +66,22 @@
                             </button>
                         </form>
                     </div>
-                    <div class="container py-5">
-                        <h4>Zadat nalezený balíček</h4>
+                    </div>
+
+                    <div class="card my-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Zadat nalezený balíček</h4>
                         <form method="POST" action="{% url 'hg_app:submit_package' %}">
                             {% csrf_token %}
                             {{ submit_package_form|crispy }}
-                            <button class="btn btn-primary" type="submit">Odeslat</button>
+                            <button class="btn btn-primary" type="submit">Označit jako nalezené</button>
                         </form>
                     </div>
+                    </div>
 
-                    <div class="container py-5">
-                        <h4>Dostupné balíčky</h4>
+                    <div class="card my-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Dostupné balíčky</h4>
                         <table class="table table-striped">
                             <th scope="col">Balíček</th>
                             <th scope="col">Souřadnice</th>
@@ -57,16 +91,19 @@
                                 <tr>
                                     <td>#{{ package.id }}</td>
                                     <td>
-                                        <a href="https://mapy.cz/turisticka?x={{ package.location.x }}&y={{ package.location.y }}&z=17&source=coor&id={{ package.location.x }}%2C{{ package.location.y }}">{{ package.location.y }}N, {{ package.location.x }}E</a></td>
+                                        <a href="https://mapy.cz/turisticka?x={{ package.location.x|stringformat:'.7f' }}&y={{ package.location.y|stringformat:'.7f' }}&z=17&source=coor&id={{ package.location.x|stringformat:'.7f' }}%2C{{ package.location.y|stringformat:'.7f' }}">{{ package.location.y|stringformat:'.7f' }}N, {{ package.location.x|stringformat:'.7f' }}E</a>
+                                    </td>
                                     <td>{{ package.opening_time | date:'H:i' }}</td>
                                 </tr>
                             {% endfor %}
                         </table>
                     </div>
+                    </div>
 
 
-                    <div class="container py-5">
-                        <h4>Ověřit nalezený point</h4>
+                    <div class="card my-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Ověřit nalezený point</h4>
                         <form method="POST" action="{% url 'hg_app:submit_point' %}" id="post-form">
                             {% csrf_token %}
                             {{ submit_point_form|crispy }}
@@ -74,14 +111,17 @@
                                 Ověřit
                             </button>
                             <small id="pointHelpBlock" class="form-text text-muted">
-                                Ověření probíhá na základě polohy. Point zadávej v bezprostřední vzdálenosti uvedených
+                                Ověření probíhá na základě polohy. Point zadávej v bezprostřední blízkosti uvedených
                                 souřadnic.
                             </small>
 
                         </form>
                     </div>
-                    <div class="container py-5">
-                        <h4>Dostupné pointy</h4>
+                    </div>
+
+                    <div class="card my-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Dostupné pointy</h4>
                         <table class="table table-striped">
                             <th scope="col">Point</th>
                             <th scope="col">Souřadnice</th>
@@ -91,84 +131,187 @@
                                 <tr>
                                     <td>#{{ point.id }}</td>
                                     <td>
-                                        <a href=https://mapy.cz/turisticka?x={{ point.location.x }}&y={{ point.location.y }}&z=17&source=coor&id={{ point.location.x }}%2C{{ point.location.y }}">{{ point.location.y }}N, {{ point.location.x }}E</a></td>
+                                        <a href="https://mapy.cz/turisticka?x={{ point.location.x|stringformat:'.7f' }}&y={{ point.location.y|stringformat:'.7f' }}&z=17&source=coor&id={{ point.location.x|stringformat:'.7f' }}%2C{{ point.location.y|stringformat:'.7f' }}">{{ point.location.y|stringformat:'.7f' }}N, {{ point.location.x|stringformat:'.7f' }}E</a>
+                                    </td>
                                     <td>{{ point.opening_time | date:'H:i' }}</td>
                                 </tr>
                             {% endfor %}
                         </table>
                     </div>
-                {% else %}
-                    <h4><span class="badge badge-danger">Jsi mrtvý(á). Vrať se na základnu.</span></h4>
                     </div>
+
+                    <div class="card my-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Vyzvednout speciální efekt</h4>
+                        <form method="POST" action="{% url 'hg_app:submit_special' %}">
+                            {% csrf_token %}
+                            {{ submit_special_form|crispy }}
+                            <button class="btn btn-primary" type="submit" aria-describedby="pointHelpBlock2">Odeslat</button>
+                            <small id="pointHelpBlock2" class="form-text text-muted">
+                                Toto pole použij, pokud najdeš v balíčku trofej, bonusový život...
+                            </small>
+                        </form>
+                        </div>
+                        </div>
+
+                    <div class="card my-4">
+                    <div class="card-body">
+                    <p class="text-justify"><img src="{% static '/images/package.png' %}"> značí balíčky, <img src="{% static '/images/point.png' %}"> pointy. Pokud máš na někoho quest,
+                    zobrazuje se jako <img src="{% static '/images/target.png' %}">. Hráči s trofejí jsou <img src="{% static '/images/trophy.png' %}"></p>
+
+                    <div id="map" style="width:auto; height:400px;"></div>
+                    <script type="text/javascript">
+                        var center = SMap.Coords.fromWGS84(17.14, 48.90);
+                        var map = new SMap(JAK.gel("map"), center, 14);
+                        map.addDefaultLayer(SMap.DEF_TURIST).enable();
+                        map.addDefaultControls();
+
+                        var packages = new SMap.Layer.Marker();
+                        map.addLayer(packages);
+                        packages.enable();
+
+
+                        {% for package in packages %}
+                            var znacka = JAK.mel("div");
+                            var obrazek = JAK.mel("img", {src: "{% static '/images/package.png' %}"});
+                            znacka.appendChild(obrazek);
+
+                            var card = new SMap.Card();
+                            card.getHeader().innerHTML = "<strong>Balíček #{{package.id}}</strong>";
+                            card.getBody().innerHTML = "Otevření: {{ package.opening_time | date:'H:i' }}<br>";
+                            card.getBody().innerHTML += "<a href=\"https://mapy.cz/turisticka?x={{ package.location.x|stringformat:'.7f' }}&y={{ package.location.y|stringformat:'.7f' }}&z=17&source=coor&id={{ package.location.x|stringformat:'.7f' }}%2C{{ package.location.y|stringformat:'.7f' }}\">{{ package.location.y|stringformat:'.7f' }}N, {{ package.location.x|stringformat:'.7f' }}E</a>"
+
+                            var options = {
+                                title: "Balíček #{{ package.id }}",
+                                url: znacka,
+                            };
+                            var coords = SMap.Coords.fromWGS84({{package.location.x|stringformat:'.7f'}}, {{package.location.y|stringformat:'.7f'}});
+                            var marker = new SMap.Marker(coords, {{package.id}}, options);
+                            marker.decorate(SMap.Marker.Feature.Card, card);
+                            packages.addMarker(marker);
+                        {% endfor %}
+
+                        var points = new SMap.Layer.Marker();
+                        map.addLayer(points);
+                        points.enable();
+                        {% for point in points %}
+                            znacka = JAK.mel("div");
+                            obrazek = JAK.mel("img", {src: "{% static '/images/point.png' %}"});
+                            znacka.appendChild(obrazek);
+
+                            card = new SMap.Card();
+                            card.getHeader().innerHTML = "<strong>Point #{{point.id}}</strong>";
+                            card.getBody().innerHTML = "Otevření: {{ point.opening_time | date:'H:i' }}<br>";
+                            card.getBody().innerHTML += "<a href=\"https://mapy.cz/turisticka?x={{ point.location.x|stringformat:'.7f' }}&y={{ point.location.y|stringformat:'.7f' }}&z=17&source=coor&id={{ point.location.x|stringformat:'.7f' }}%2C{{ point.location.y|stringformat:'.7f' }}\">{{ point.location.y|stringformat:'.7f' }}N, {{ point.location.x|stringformat:'.7f' }}E</a>"
+
+                            options = {
+                                title: "Point #{{ point.id }}",
+                                url: znacka,
+                            };
+                            coords = SMap.Coords.fromWGS84({{point.location.x|stringformat:'.7f'}}, {{point.location.y|stringformat:'.7f'}});
+                            marker = new SMap.Marker(coords, {{point.id}}, options);
+                            marker.decorate(SMap.Marker.Feature.Card, card);
+                            points.addMarker(marker);
+                        {% endfor %}
+
+                        {% if quest is not None %}
+                        var quest = new SMap.Layer.Marker();
+                        map.addLayer(quest);
+                        quest.enable();
+                        znacka = JAK.mel("div");
+                        obrazek = JAK.mel("img", {src: "{% static '/images/target.png' %}"});
+                        znacka.appendChild(obrazek);
+                        card = new SMap.Card();
+                        card.getHeader().innerHTML = "<strong>{{quest}}</strong>";
+                        card.getBody().innerHTML += "<a href=\"https://mapy.cz/turisticka?x={{ quest.location_history.x|stringformat:'.7f' }}&y={{ quest.location_history.y|stringformat:'.7f' }}&z=17&source=coor&id={{ quest.location_history.x|stringformat:'.7f' }}%2C{{ quest.location_history.y|stringformat:'.7f' }}\">{{ quest.location_history.y|stringformat:'.7f' }}N, {{ quest.location_history.x|stringformat:'.7f' }}E</a>"
+                        options = {
+                            title: "{{quest}}",
+                            url: znacka,
+                        };
+                            coords = SMap.Coords.fromWGS84({{quest.location_history.x|stringformat:'.7f'}}, {{quest.location_history.y|stringformat:'.7f'}});
+                            marker = new SMap.Marker(coords, {{quest.id}}, options);
+                            marker.decorate(SMap.Marker.Feature.Card, card);
+                            quest.addMarker(marker);
+                        {% endif %}
+                        var players = new SMap.Layer.Marker();
+                        map.addLayer(players);
+                        players.enable();
+
+                        {% for player in trophy_players %}
+
+                        znacka = JAK.mel("div");
+                        obrazek = JAK.mel("img", {src: "{% static '/images/trophy.png' %}"});
+                        znacka.appendChild(obrazek);
+                        card = new SMap.Card();
+                        card.getHeader().innerHTML = "<strong>{{player}}</strong>";
+                        card.getBody().innerHTML += "<a href=\"https://mapy.cz/turisticka?x={{ player.location_history.x|stringformat:'.7f' }}&y={{ player.location_history.y|stringformat:'.7f' }}&z=17&source=coor&id={{ player.location_history.x|stringformat:'.7f' }}%2C{{ player.location_history.y|stringformat:'.7f' }}\">{{ player.location_history.y|stringformat:'.7f' }}N, {{ player.location_history.x|stringformat:'.7f' }}E</a>"
+                        options = {
+                            title: "{{player}}",
+                            url: znacka,
+                        };
+                            coords = SMap.Coords.fromWGS84({{player.location_history.x|stringformat:'.7f'}}, {{player.location_history.y|stringformat:'.7f'}});
+                            marker = new SMap.Marker(coords, {{player.id}}, options);
+                            marker.decorate(SMap.Marker.Feature.Card, card);
+                            players.addMarker(marker);
+                        {% endfor %}
+
+                        {% if if_show_players %}
+                        var players_to_show = new SMap.Layer.Marker();
+                        map.addLayer(players_to_show);
+                        players_to_show.enable();
+
+                        {% for show_player in show_players %}
+
+                        znacka = JAK.mel("div");
+                        obrazek = JAK.mel("img", {src: "{% static '/images/target.png' %}"});
+                        znacka.appendChild(obrazek);
+                        card = new SMap.Card();
+                        card.getHeader().innerHTML = "<strong>{{show_player}}</strong>";
+                        card.getBody().innerHTML += "<a href=\"https://mapy.cz/turisticka?x={{ show_player.location_history.x|stringformat:'.7f' }}&y={{ show_player.location_history.y|stringformat:'.7f' }}&z=17&source=coor&id={{ show_player.location_history.x|stringformat:'.7f' }}%2C{{ show_player.location_history.y|stringformat:'.7f' }}\">{{ show_player.location_history.y|stringformat:'.7f' }}N, {{ show_player.location_history.x|stringformat:'.7f' }}E</a>"
+                        options = {
+                            title: "{{show_player}}",
+                            url: znacka,
+                        };
+                            coords = SMap.Coords.fromWGS84({{show_player.location_history.x|stringformat:'.7f'}}, {{show_player.location_history.y|stringformat:'.7f'}});
+                            marker = new SMap.Marker(coords, {{show_player.id}}, options);
+                            marker.decorate(SMap.Marker.Feature.Card, card);
+                            players_to_show.addMarker(marker);
+                        {% endfor %}
+                        {% endif %}
+
+                        var border = new SMap.Layer.Geometry();
+                        map.addLayer(border);
+                        border.enable();
+
+                        var border_points = [
+
+                            SMap.Coords.fromWGS84(17.1278975, 48.9115756),
+                            SMap.Coords.fromWGS84(17.1595011, 48.9137322),
+                            SMap.Coords.fromWGS84(17.1625686, 48.9088561),
+                            SMap.Coords.fromWGS84(17.1534306, 48.8941125),
+                            SMap.Coords.fromWGS84(17.1425478, 48.8914522),
+                            SMap.Coords.fromWGS84(17.1278975, 48.9115756),
+                        ];
+                        var border_options = {
+                            color: "#f00",
+                            width: 3
+                        };
+                        var polyline = new SMap.Geometry(SMap.GEOMETRY_POLYLINE, null, border_points, border_options);
+                        border.addGeometry(polyline);
+                    </script>
+                    </div>
+                    </div>
+                    <script src="{% static '/location.js' %}"></script>
                 {% endif %}
+            {% else %}
+                <div class="card my-4">
+                <div class="card-body">
+                <h4><span class="badge badge-danger">Jsi mrtvý(á). Vrať se na základnu.</span></h4>
+                    </div>
+                    </div>
 
-            <div id="map" style="width:auto; height:400px;"></div>
-            <script type="text/javascript">
-                var center = SMap.Coords.fromWGS84(17.14, 48.90);
-                var map = new SMap(JAK.gel("map"), center, 14);
-                map.addDefaultLayer(SMap.DEF_TURIST).enable();
-                map.addDefaultControls();
+            {% endif %}
 
-                var packages = new SMap.Layer.Marker();
-                map.addLayer(packages);
-                packages.enable();
-
-                {% for package in packages %}
-                    /*
-                    var znacka = JAK.mel("div");
-                    var obrazek = JAK.mel("img", {src:SMap.CONFIG.img+"/marker/drop-red.png"});
-                    znacka.appendChild(obrazek);
-
-                    var popisek = JAK.mel("div", {}, {position:"absolute", left:"0px", top:"2px", textAlign:"center", width:"22px", color:"white"});
-                    popisek.innerHTML = "#{{ package.id }}";
-                    znacka.appendChild(popisek);
-                    */
-
-                    var card = new SMap.Card();
-                    card.getHeader().innerHTML = "<strong>Balíček #{{package.id}}</strong>";
-                    card.getBody().innerHTML = "Otevření: {{ package.opening_time | date:'H:i' }}<br>";
-                    card.getBody().innerHTML += "<a href=\"https://mapy.cz/turisticka?x={{ package.location.x }}&y={{ package.location.y }}&z=17&source=coor&id={{ package.location.x }}%2C{{ package.location.y }}\">{{ package.location.y }}N, {{ package.location.x }}E</a>"
-
-                    var options = {
-                        title: "Balíček #{{ package.id }}",
-                        //url: znacka,
-                    };
-                    var coords = SMap.Coords.fromWGS84({{package.location.x}}, {{package.location.y}});
-                    var marker = new SMap.Marker(coords, {{package.id}}, options);
-                    marker.decorate(SMap.Marker.Feature.Card, card);
-                    packages.addMarker(marker);
-                {% endfor %}
-                {% for point in points %}
-                    znacka = JAK.mel("div");
-                    obrazek = JAK.mel("img", {src: SMap.CONFIG.img + "/marker/drop-blue.png"});
-                    znacka.appendChild(obrazek);
-
-                    popisek = JAK.mel("div", {}, {
-                        position: "absolute",
-                        left: "0px",
-                        top: "2px",
-                        textAlign: "center",
-                        width: "22px",
-                        color: "white"
-                    });
-                    popisek.innerHTML = "#{{ point.id }}";
-                    znacka.appendChild(popisek);
-
-                    card = new SMap.Card();
-                    card.getHeader().innerHTML = "<strong>Point #{{point.id}}</strong>";
-                    card.getBody().innerHTML = "Otevření: {{ point.opening_time | date:'H:i' }}<br>";
-                    card.getBody().innerHTML += "<a href=\"https://mapy.cz/turisticka?x={{ point.location.x }}&y={{ point.location.y }}&z=17&source=coor&id={{ point.location.x }}%2C{{ point.location.y }}\">{{ point.location.y }}N, {{ point.location.x }}E</a>"
-
-                    options = {
-                        title: "Point #{{ point.id }}",
-                        url: znacka,
-                    };
-                    coords = SMap.Coords.fromWGS84({{point.location.x}}, {{point.location.y}});
-                    marker = new SMap.Marker(coords, {{point.id}}, options);
-                    marker.decorate(SMap.Marker.Feature.Card, card);
-                    packages.addMarker(marker);
-                {% endfor %}
-            </script>
 
         {% endif %}
     </div>

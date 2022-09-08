@@ -1,6 +1,8 @@
 <!--Navbar-->
+    {% load static %}
+
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ff9900;">
-    <a class="navbar-brand" href="/">HG APP</a>
+    <a class="navbar-brand" href="/"><img src="{% static '/images/logo2_black.png' %}" alt="hg_logo" style="height:42px;"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="False" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,33 +11,43 @@
         <ul class="navbar-nav mr-auto">
             {% if user.is_authenticated %}
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Odhlásit se</a>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/account">Přihlášený hráč: {{ user.username }}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Přihlášený hráč: {{ user.username }}</a>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/stats">Tvoje statistiky</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/rules">Pravidla</a>
-                </li>
-                <li class="nav-item">
+
+                <li class="nav-item active">
                     <a class="nav-link" href="/players">Hráči</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/stats">Statistiky</a>
-                </li>
-                </ul>
+
+
 
 
             {% else %}
 
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/login">Přihlásit se</a>
                 </li>
-                </ul>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/register">Registrovat se</a>
+                </li>
+
 
             {% endif %}
 
+            <li class="nav-item active">
+                <a class="nav-link" href="/rules">Pravidla</a>
+            </li>
+             {% if user.is_authenticated %}
+            <li class="nav-item">
+                    <a class="nav-link" href="/logout">Odhlásit se</a>
+                </li>
+            {% endif %}
+        </ul>
 
     </div>
 </nav>

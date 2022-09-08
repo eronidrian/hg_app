@@ -147,3 +147,5 @@ MESSAGE_TAGS = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploaded_files')
 MEDIA_URL = '/photos/'
+
+CSRF_TRUSTED_ORIGINS = ['https://*.hungergames.site','https://*.127.0.0.1']

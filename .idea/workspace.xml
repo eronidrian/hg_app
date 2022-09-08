@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="95cf3e4d-3412-48f1-910b-e66ea018dcc9" name="Changes" comment="little fix in urls">
+    <list default="true" id="fb20dd26-c523-4a94-b4ab-bda566a337d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0002_kill_message_player_delete_customuser_kill_killer_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0003_remove_kill_killer_kill_killer_remove_kill_victim_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0004_haspoint_hasmessage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0005_remove_haspackage_package_remove_haspackage_player_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0006_remove_kill_killer_player_kills.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0007_remove_player_kills_kill_murderer_alter_kill_victim_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0008_alter_kill_murderer_alter_kill_stealth_kill_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0009_alter_package_picked_up.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0010_alter_package_description_alter_package_picked_up.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0011_player_score_alter_message_time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0012_player_photo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0013_alter_message_time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0014_alter_package_lat_alter_package_long_alter_point_lat_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0015_remove_point_codes_point_picked_up_alter_package_lat_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0016_point_max_number_of_visits_remove_point_picked_up_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0017_alter_point_description.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0018_point_location.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/signals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/static/location.js" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/static/location.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/messages.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/messages.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/navbar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/players.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/players.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/rules.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/stats.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/stats.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/values.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/values.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,161 +49,60 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
-    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
-        <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
-    </option>
-  </component>
-  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
-    <envs>
-      <env key="FLASK_APP" value="app" />
-    </envs>
-    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
-    <option name="myEnvs">
-      <map>
-        <entry key="FLASK_APP" value="app" />
-      </map>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/hg_app/admin.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/hg_app/forms.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/hg_app/models.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/hg_app/signals.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/hg_app/templates/hg_app/index.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/hg_app/views.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/auto_import.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="28Se7M2OJVRvtgjYNDTglLcgZQ7" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2E7ERoO4sEcKfMgMIXGUfusGwVo" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/petrh/Downloads/json-csv-2.py&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+    &quot;last_opened_file_path&quot;: &quot;/mnt/lamanchy/import_data&quot;
   }
 }</component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/hg_app/static" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/import_data" />
     </key>
-  </component>
-  <component name="RunManager" selected="Django Server.hg_app">
-    <configuration name="hg" type="Python.DjangoServer" factoryName="Django server">
-      <module name="hg_app" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="hg_app" type="Python.DjangoServer" factoryName="Django server">
-      <module name="hg_app" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Django Server.hg_app" />
-      <item itemvalue="Django Server.hg" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="95cf3e4d-3412-48f1-910b-e66ea018dcc9" name="Changes" comment="" />
-      <created>1651214245442</created>
+      <changelist id="fb20dd26-c523-4a94-b4ab-bda566a337d2" name="Changes" comment="" />
+      <created>1661938218915</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1651214245442</updated>
-      <workItem from="1651214266474" duration="10097000" />
-      <workItem from="1651512365772" duration="19000" />
-      <workItem from="1651597008543" duration="8381000" />
-      <workItem from="1651606141481" duration="2654000" />
-      <workItem from="1651653602353" duration="13632000" />
-      <workItem from="1651908788224" duration="6689000" />
-      <workItem from="1652963135029" duration="237000" />
-      <workItem from="1654842646063" duration="6876000" />
+      <updated>1661938218915</updated>
+      <workItem from="1661938221065" duration="19000" />
+      <workItem from="1661938277313" duration="1431000" />
+      <workItem from="1662398238575" duration="2448000" />
+      <workItem from="1662475200708" duration="13166000" />
+      <workItem from="1662540347519" duration="945000" />
     </task>
-    <task id="LOCAL-00001" summary="footer">
-      <created>1651220260146</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1651220260147</updated>
-    </task>
-    <task id="LOCAL-00002" summary="footer v2">
-      <created>1651220514422</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1651220514422</updated>
-    </task>
-    <task id="LOCAL-00003" summary="bug fixes: stealth kill, death...">
-      <created>1651227569954</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1651227569954</updated>
-    </task>
-    <task id="LOCAL-00004" summary="little fix in urls">
-      <created>1652095947822</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1652095947822</updated>
-    </task>
-    <task id="LOCAL-00005" summary="static files">
-      <created>1652097284157</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1652097284157</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,13 +118,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="footer" />
-    <MESSAGE value="footer v2" />
-    <MESSAGE value="bug fixes: stealth kill, death..." />
-    <MESSAGE value="little fix in urls" />
-    <MESSAGE value="static files" />
-    <option name="LAST_COMMIT_MESSAGE" value="static files" />
   </component>
 </project>

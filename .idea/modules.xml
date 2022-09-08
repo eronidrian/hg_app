@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/hg_app.iml" filepath="$PROJECT_DIR$/.idea/hg_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lamanchy.iml" filepath="$PROJECT_DIR$/.idea/lamanchy.iml" />
     </modules>
   </component>
 </project>

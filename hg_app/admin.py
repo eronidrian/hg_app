@@ -8,16 +8,16 @@ class MyKillsAdmin(admin.TabularInline):
     model = Kill
     fk_name = 'murderer'
 
-    verbose_name = 'My kill'
-    verbose_name_plural = 'My kills'
+    verbose_name = 'Hráčův kill'
+    verbose_name_plural = 'Hráčovy killy'
 
 
 class MyDeathsAdmin(admin.TabularInline):
     model = Kill
     fk_name = 'victim'
 
-    verbose_name = 'My death'
-    verbose_name_plural = 'My deaths'
+    verbose_name = 'Hráčova smrt'
+    verbose_name_plural = 'Hráčovy smrti'
 
 
 @admin.register(Point)
@@ -27,18 +27,31 @@ class PointAdmin(OSMGeoAdmin):
     default_zoom = 15
 
 
+@admin.register(Package)
+class PackageAdmin(OSMGeoAdmin):
+    default_lon = 46
+    default_lat = 17
+    default_zoom = 15
+
 
 @admin.register(Player)
-class PlayerAdmin(admin.ModelAdmin):
+class PlayerAdmin(OSMGeoAdmin):
     search_fields = 'user__username',
     list_display = 'user', 'lives', 'score'
     list_filter = 'lives',
 
-    filter_horizontal = 'points',
+    filter_horizontal = 'points','packages'
 
     inlines = [MyKillsAdmin, MyDeathsAdmin]
 
 
-admin.site.register(Package)
 admin.site.register(Kill)
-admin.site.register(Message)
+
+
+admin.site.register(SpecialAction)
+admin.site.register(AdminConfiguration)
+
+@admin.register(Logs)
+class LogsAdmin(admin.ModelAdmin):
+    list_display = 'player', 'brief', 'log'
+    list_filter = 'player',
