@@ -21,7 +21,8 @@ urlpatterns = [
     path("submit_special/", views.submit_special, name="submit_special"),
     path("account/", views.account, name="account"),
     path("account/change_password", views.change_password, name="change_password"),
-    path("account/profile_picture", views.profile_picture, name="profile_picture")
+    path("account/profile_picture", views.profile_picture, name="profile_picture"),
+    path("epic_map", views.epic_map, name="epic_map"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

@@ -50,7 +50,11 @@
             <form method="POST" enctype="multipart/form-data" action="{% url 'hg_app:profile_picture' %}">
                 {% csrf_token %}
                 {{ profile_picture_form|crispy }}
-                <button class="btn btn-primary" type="submit">Změnit profilový obrázek</button>
+                <button class="btn btn-primary" aria-describedby="pointHelpBlock" type="submit">Změnit profilový obrázek</button>
+                <small id="pointHelpBlock" class="form-text text-muted">
+                    Maximální velikost obrázku je 1MB.
+                    Snížení velikosti můžeš dosáhnout zmenšením rozměrů, snížením kvality...
+                </small>
             </form>
         </div>
     </div>

@@ -1,47 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fb20dd26-c523-4a94-b4ab-bda566a337d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="3318df70-bc84-4cb1-b45a-8f136f9b84dd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0002_kill_message_player_delete_customuser_kill_killer_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0003_remove_kill_killer_kill_killer_remove_kill_victim_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0004_haspoint_hasmessage.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0005_remove_haspackage_package_remove_haspackage_player_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0006_remove_kill_killer_player_kills.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0007_remove_player_kills_kill_murderer_alter_kill_victim_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0008_alter_kill_murderer_alter_kill_stealth_kill_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0009_alter_package_picked_up.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0010_alter_package_description_alter_package_picked_up.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0011_player_score_alter_message_time.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0012_player_photo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0013_alter_message_time.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0014_alter_package_lat_alter_package_long_alter_point_lat_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0015_remove_point_codes_point_picked_up_alter_package_lat_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0016_point_max_number_of_visits_remove_point_picked_up_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0017_alter_point_description.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/migrations/0018_point_location.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/signals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/static/location.js" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/static/location.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/messages.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/messages.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/account.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/includes/navbar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/players.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/players.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/rules.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/templates/hg_app/stats.html" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/templates/hg_app/stats.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hg_app/values.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/values.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hg_app/values.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hg_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/hg_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,29 +17,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/hg_app/admin.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/hg_app/forms.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/hg_app/models.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/hg_app/signals.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/hg_app/templates/hg_app/index.html" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/hg_app/views.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/scripts/auto_import.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2E7ERoO4sEcKfMgMIXGUfusGwVo" />
+  <component name="ProjectId" id="2EhhfO4DV7NR9FhFMVzMtOt2jtO" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -80,28 +32,20 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/mnt/lamanchy/import_data&quot;
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/import_data" />
-    </key>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fb20dd26-c523-4a94-b4ab-bda566a337d2" name="Changes" comment="" />
-      <created>1661938218915</created>
+      <changelist id="3318df70-bc84-4cb1-b45a-8f136f9b84dd" name="Changes" comment="" />
+      <created>1663053827529</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1661938218915</updated>
-      <workItem from="1661938221065" duration="19000" />
-      <workItem from="1661938277313" duration="1431000" />
-      <workItem from="1662398238575" duration="2448000" />
-      <workItem from="1662475200708" duration="13166000" />
-      <workItem from="1662540347519" duration="945000" />
+      <updated>1663053827529</updated>
+      <workItem from="1663053829787" duration="147000" />
+      <workItem from="1663053993851" duration="4707000" />
+      <workItem from="1663136768433" duration="680000" />
     </task>
     <servers />
   </component>

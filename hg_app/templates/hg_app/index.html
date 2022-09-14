@@ -37,8 +37,27 @@
                             {% else %}
                                 <h6>Nemáš žádný quest</h6>
                             {% endif %}
+                            <h4><span class="badge badge-warning" id="demo"></span></h4>
                         </div>
                     </div>
+
+                    <script>
+                        var countDownDate = new Date("{{ end_game.isoformat }}").getTime();
+                        var x = setInterval(function() {
+                            var now = new Date().getTime();
+                            var distance = countDownDate - now;
+                            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                            document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+                            + minutes + "m " + seconds + "s ";
+                            if (distance < 0) {
+                                clearInterval(x);
+                                 document.getElementById("demo").innerHTML = "HRA SKONČILA";
+                            }
+                        }, 1000);
+</script>
 
                     <div class="card my-4">
                     <div class="card-body">
@@ -82,6 +101,10 @@
                     <div class="card my-4">
                     <div class="card-body">
                         <h4 class="card-title">Dostupné balíčky</h4>
+                        <small class="form-text text-muted">
+                                Zobrazují se všechny balíčky, včetně těch vybraných. Po určitém čase (několik hodin)
+                                vybrané balíčky zmizí a zůstanou jen volné.
+                        </small>
                         <table class="table table-striped">
                             <th scope="col">Balíček</th>
                             <th scope="col">Souřadnice</th>
@@ -91,7 +114,7 @@
                                 <tr>
                                     <td>#{{ package.id }}</td>
                                     <td>
-                                        <a href="https://mapy.cz/turisticka?x={{ package.location.x|stringformat:'.7f' }}&y={{ package.location.y|stringformat:'.7f' }}&z=17&source=coor&id={{ package.location.x|stringformat:'.7f' }}%2C{{ package.location.y|stringformat:'.7f' }}">{{ package.location.y|stringformat:'.7f' }}N, {{ package.location.x|stringformat:'.7f' }}E</a>
+                                        <a target="_blank" href="https://mapy.cz/turisticka?x={{ package.location.x|stringformat:'.7f' }}&y={{ package.location.y|stringformat:'.7f' }}&z=17&source=coor&id={{ package.location.x|stringformat:'.7f' }}%2C{{ package.location.y|stringformat:'.7f' }}">{{ package.location.y|stringformat:'.7f' }}N, {{ package.location.x|stringformat:'.7f' }}E</a>
                                     </td>
                                     <td>{{ package.opening_time | date:'H:i' }}</td>
                                 </tr>
@@ -122,6 +145,10 @@
                     <div class="card my-4">
                     <div class="card-body">
                         <h4 class="card-title">Dostupné pointy</h4>
+                        <small class="form-text text-muted">
+                                Zobrazují se všechny pointy, včetně těch vybraných. Po určitém čase (několik hodin)
+                                vybrané pointy zmizí a zůstanou jen volné.
+                        </small>
                         <table class="table table-striped">
                             <th scope="col">Point</th>
                             <th scope="col">Souřadnice</th>
@@ -131,7 +158,7 @@
                                 <tr>
                                     <td>#{{ point.id }}</td>
                                     <td>
-                                        <a href="https://mapy.cz/turisticka?x={{ point.location.x|stringformat:'.7f' }}&y={{ point.location.y|stringformat:'.7f' }}&z=17&source=coor&id={{ point.location.x|stringformat:'.7f' }}%2C{{ point.location.y|stringformat:'.7f' }}">{{ point.location.y|stringformat:'.7f' }}N, {{ point.location.x|stringformat:'.7f' }}E</a>
+                                        <a target="_blank" href="https://mapy.cz/turisticka?x={{ point.location.x|stringformat:'.7f' }}&y={{ point.location.y|stringformat:'.7f' }}&z=17&source=coor&id={{ point.location.x|stringformat:'.7f' }}%2C{{ point.location.y|stringformat:'.7f' }}">{{ point.location.y|stringformat:'.7f' }}N, {{ point.location.x|stringformat:'.7f' }}E</a>
                                     </td>
                                     <td>{{ point.opening_time | date:'H:i' }}</td>
                                 </tr>
@@ -158,8 +185,11 @@
                     <div class="card-body">
                     <p class="text-justify"><img src="{% static '/images/package.png' %}"> značí balíčky, <img src="{% static '/images/point.png' %}"> pointy. Pokud máš na někoho quest,
                     zobrazuje se jako <img src="{% static '/images/target.png' %}">. Hráči s trofejí jsou <img src="{% static '/images/trophy.png' %}"></p>
+                        {% if if_show_players %}
+                        <p class="text-justify" style="color:red">Nyní vidíš polohu všech hráčů. Zobrazují se jako <img src="{% static '/images/target.png' %}">.</p>
+                        {% endif %}
 
-                    <div id="map" style="width:auto; height:400px;"></div>
+                    <div id="map" style="width:auto; height:400px; touch-action: none"></div>
                     <script type="text/javascript">
                         var center = SMap.Coords.fromWGS84(17.14, 48.90);
                         var map = new SMap(JAK.gel("map"), center, 14);

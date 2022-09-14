@@ -116,6 +116,7 @@ class AdminConfiguration(models.Model):
     show_people = models.BooleanField(default=False, verbose_name="Odkrýt pozice všech hráčů")
     turn_off = models.BooleanField(default=False, verbose_name="Vypnout aplikaci pro hráče")
     hide_after = models.IntegerField(default=3, verbose_name="Schovat vybrané pointy/balíčky za (hodiny)")
+    end_game = models.DateTimeField(default='2022-09-16 14:30:59', verbose_name="Konec hry")
 
     class Meta:
         verbose_name = "Nastavení"
@@ -131,13 +132,13 @@ class AdminConfiguration(models.Model):
 
 
 class Logs(models.Model):
-    time = models.TimeField(auto_now=True, verbose_name='Čas')
+    time = models.DateTimeField(auto_now=True, verbose_name='Čas')
     player = models.ForeignKey(Player, blank=True, null=True, on_delete=models.CASCADE, verbose_name="Hráč")
     brief = models.CharField(max_length=10, verbose_name='Stručně')
     log = models.CharField(max_length=100, verbose_name='Obsah logu')
 
     class Meta:
-        ordering = 'time',
+        ordering = '-time',
         verbose_name = "Log"
         verbose_name_plural = "Logy"
 

@@ -13,14 +13,19 @@
 
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="/account">Přihlášený hráč: {{ user.username }}</a>
+                    <a class="nav-link" href="/#">Přihlášený hráč: {{ user.username }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/account">Změnit údaje
+                    </a>
                 </li>
 
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/stats">Tvoje statistiky</a>
                 </li>
 
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/players">Hráči</a>
                 </li>
 
@@ -29,17 +34,17 @@
 
             {% else %}
 
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/login">Přihlásit se</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/register">Registrovat se</a>
                 </li>
 
 
             {% endif %}
 
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/rules">Pravidla</a>
             </li>
              {% if user.is_authenticated %}

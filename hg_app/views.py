@@ -3,6 +3,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.gis.geos import Point as GPoint
 from django.http import HttpResponse
 from django.db.models import Q, Count, F
+from django.core.exceptions import PermissionDenied
 
 
 
@@ -14,7 +15,6 @@ from django.conf import settings
 
 from .forms import *
 from .models import *
-from .values import *
 
 
 
@@ -28,7 +28,8 @@ def index(request, submit_kill_form=None, submit_package_form=None, submit_point
             submit_point_form = SubmitPoint(user=request.user)
         if submit_special_form is None:
             submit_special_form = SubmitSpecial()
-
+        if request.user.is_superuser:
+            return redirect("hg_app:epic_map")
         player = request.user.player
 
         player_lives = player.lives
@@ -49,6 +50,13 @@ def index(request, submit_kill_form=None, submit_package_form=None, submit_point
         if_show_players = AdminConfiguration.objects.get(id=1).show_people
         show_players = Player.objects.exclude(location_history=None)
         turn_off = AdminConfiguration.objects.get(id=1).turn_off
+        end_game = AdminConfiguration.objects.get(id=1).end_game
+
+        if not player.photo:
+            messages.warning(request, "Nemáš nahranou profilovou fotku. Nahraj si ji prosím v záložce \"Změnit údaje\"")
+        if not player.location_history:
+            messages.warning(request, "Nemáš povolený přístup k poloze pro tuto stránku. "
+                                      "Nezapomeň to aplikaci před hrou povolit")
 
     return render(request=request, template_name='hg_app/index.html', context=locals())
 
@@ -62,7 +70,7 @@ def register_request(request):
             messages.success(request, "Registrace proběhla úspěšně.")
             return redirect("hg_app:index")
 
-        messages.error(request, "Registrace selhala.")
+        messages.error(request, f"Registrace selhala. ({form.errors.as_data()})")
     form = NewUserForm()
     return render(request=request, template_name="hg_app/register.html", context={"register_form": form})
 
@@ -76,6 +84,8 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
+                if user.is_superuser:
+                    return redirect("hg_app:epic_map")
                 messages.info(request, f"Přihlásil(a) ses jako {username}.")
                 return redirect("hg_app:index")
             else:
@@ -93,7 +103,7 @@ def logout_request(request):
     messages.info(request, "Odhlášení proběhlo úspěšně")
     return redirect("hg_app:index")
 
-
+@login_required
 def submit_kill(request):
     assert request.method == "POST"
 
@@ -340,3 +350,18 @@ def profile_picture(request):
         profile_picture_form = ProfilePicture()
 
     return account(request, profile_picture_form=profile_picture_form)
+
+
+@login_required
+def epic_map(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied()
+    players_alive = Player.objects.exclude(lives=0).exclude(location_history__isnull=True)
+    players_dead = Player.objects.filter(lives=0).exclude(location_history__isnull=True)
+    packages_picked_up = Package.objects.filter(picked_up__isnull=False)
+    packages_free = Package.objects.filter(picked_up__isnull=True)
+    points_picked_up = Point.objects.annotate(num=Count('picked_up')).filter(num=F('max_number_of_visits'))
+    points_free = Point.objects.annotate(num=Count('picked_up')).exclude(num=F('max_number_of_visits'))
+    end_game = AdminConfiguration.objects.get(id=1).end_game
+
+    return render(request, template_name="hg_app/epic_map.html", context=locals())
