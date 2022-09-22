@@ -50,6 +50,7 @@ admin.site.register(Kill)
 
 admin.site.register(SpecialAction)
 admin.site.register(AdminConfiguration)
+admin.site.register(Message)
 
 @admin.register(Logs)
 class LogsAdmin(admin.ModelAdmin):

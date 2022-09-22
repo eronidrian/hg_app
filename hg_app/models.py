@@ -95,7 +95,8 @@ def random_string():
 class SpecialAction(models.Model):
     used = models.BooleanField(default=False, verbose_name="Použito")
     effect_choices = [("zivot", "zivot"),
-                      ("trofej", "trofej")]
+                      ("trofej", "trofej"),
+                      ("point", "point")]
     effect = models.CharField(verbose_name="Efekt", choices=effect_choices, max_length=30)
     verification_code = models.CharField(default=random_string, max_length=20, verbose_name="Ověřovací kód")
 
@@ -117,6 +118,7 @@ class AdminConfiguration(models.Model):
     turn_off = models.BooleanField(default=False, verbose_name="Vypnout aplikaci pro hráče")
     hide_after = models.IntegerField(default=3, verbose_name="Schovat vybrané pointy/balíčky za (hodiny)")
     end_game = models.DateTimeField(default='2022-09-16 14:30:59', verbose_name="Konec hry")
+    hide_location = models.BooleanField(default=False, verbose_name="Skrýt ověřování pointů pomocí polohy")
 
     class Meta:
         verbose_name = "Nastavení"

@@ -15,16 +15,16 @@ def point_convert(raw_point):
 #     names_dict = {rows[0]: rows[1] for rows in reader2}
 
 
-print("uploading packages")
-with open("import_data/package_test.csv") as f:
-    reader = csv.reader(f)
-    for row in reader:
-        _, created = Package.objects.get_or_create(
-            location=point_convert(row[0]),
-            description=row[1],
-            opening_time=row[2],
-        )
-print("packages uploaded")
+# print("uploading packages")
+# with open("import_data/package.csv") as f:
+#     reader = csv.reader(f)
+#     for row in reader:
+#         _, created = Package.objects.get_or_create(
+#             location=point_convert(row[0]),
+#             description=row[1],
+#             opening_time=row[2],
+#         )
+# print("packages uploaded")
 # print("uploading points")
 #
 # with open("import_data/point_test.csv") as f:
@@ -38,7 +38,7 @@ print("packages uploaded")
 #         )
 # print("points uploaded")
 # print("uploading messages")
-
+#
 #
 # with open("import_data/message.csv") as f:
 #     reader = csv.reader(f)
@@ -52,10 +52,10 @@ print("packages uploaded")
 #         for player in row[3:]:
 #             message.players.add(Player.objects.get(user=User.objects.get(username=names_dict[player])))
 #             message.save()
-
+#
 # print("messages uploaded")
 # print("uploading players")
-
+#
 #
 # with open("import_data/player.csv") as f:
 #     reader = csv.reader(f)
@@ -69,12 +69,13 @@ print("packages uploaded")
 #             player.packages.add(package)
 #             player.save()
 # print("players uploaded")
-# print("uploading special actions")
-# with open("import_data/special_action.csv") as f:
-#     reader = csv.reader(f)
-#     for row in reader:
-#         SpecialAction.objects.create(
-#             effect=row[0],
-#         )
-# print("special actions uploaded")
+print("uploading special actions")
+with open("import_data/special_action.csv") as f:
+    reader = csv.reader(f)
+    for row in reader:
+        SpecialAction.objects.create(
+            effect=row[0],
+            verification_code=row[1],
+        )
+print("special actions uploaded")
 

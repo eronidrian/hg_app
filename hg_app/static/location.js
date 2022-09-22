@@ -39,4 +39,5 @@ function create_post_periodically(position) {
 
 }
 
+getLocationPeriodically()
 setInterval(getLocationPeriodically, 10000)

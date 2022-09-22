@@ -12,6 +12,6 @@ def choose_random_player(murderer, victim=None):
     return choose_from[random_index]
 
 
-for player in Player.objects.all():
+for player in Player.objects.exclude(lives=0):
     player.quest = choose_random_player(player)
     player.save()

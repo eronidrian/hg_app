@@ -24,13 +24,12 @@
 <body>
 <div class="card my-4">
 <div class="card-body" id="checkbox-container">
-    <span style="margin-right: 25px">Živí hráči: <input type="checkbox" id="playersAlive" onclick="playersAlive()"></span>
     <span style="margin-right: 25px">Mrtví hráči: <input type="checkbox" id="playersDead" onclick="playersDead()"></span>
     <span style="margin-right: 25px">Sebrané balíčky: <input type="checkbox" id="packagesPickedUp" onclick="packagesPickedUp()"></span>
     <span style="margin-right: 25px">Zůstávající balíčky: <input type="checkbox" id="packagesFree" onclick="packagesFree()"></span>
     <span style="margin-right: 25px">Sebrané pointy: <input type="checkbox" id="pointsPickedUp" onclick="pointsPickedUp()"></span>
     <span style="margin-right: 25px">Zůstávající pointy: <input type="checkbox" id="pointsFree" onclick="pointsFree()"></span>
-    <span id="demo" style="color: red; font-size: 30px; margin-left: 100px"></span>
+    <span id="demo" style="color: red; font-size: 30px; margin-left: 25px"></span>
     <span style="margin-left: 25px"> <a class="nav-link" href="/logout">Odhlásit se</a></span>
     </div>
 
@@ -88,10 +87,24 @@ var x = setInterval(function() {
     map.addLayer(points_free);
     points_free.enable();
 
-    function playersAlive() {
-         var checkBox = document.getElementById("playersAlive");
+    var horn = new SMap.Layer.Marker();
+    map.addLayer(horn);
+    horn.enable();
+    znacka = JAK.mel("div");
+    obrazek = JAK.mel("img", {src: "{% static '/images/horn.png' %}"});
+    znacka.appendChild(obrazek);
+    card = new SMap.Card();
+    card.getHeader().innerHTML = "<strong>Roh hojnosti</strong>";
+    options = {
+        title: "Roh hojnosti",
+        url: znacka,
+    };
+    coords = SMap.Coords.fromWGS84(17.1522389,48.9074975);
+    marker = new SMap.Marker(coords, 6464, options);
+    marker.decorate(SMap.Marker.Feature.Card, card);
+    horn.addMarker(marker);
 
-         if (checkBox.checked == true){
+
             {% for player in players_alive %}
                 znacka = JAK.mel("div");
                 obrazek = JAK.mel("img", {src: "{% static '/images/target.png' %}"});
@@ -112,11 +125,7 @@ var x = setInterval(function() {
                 marker.decorate(SMap.Marker.Feature.Card, card);
                 players_alive.addMarker(marker);
              {% endfor %}
-         }
-         else {
-                players_alive.removeAll();
-         }
-    }
+
 
     function playersDead() {
          var checkBox = document.getElementById("playersDead");

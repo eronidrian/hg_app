@@ -123,7 +123,7 @@
                     </div>
                     </div>
 
-
+                    {% if not hide_location %}
                     <div class="card my-4">
                     <div class="card-body">
                         <h4 class="card-title">Ověřit nalezený point</h4>
@@ -141,6 +141,13 @@
                         </form>
                     </div>
                     </div>
+                    {% else %}
+                    <div class="card my-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Ověřování aktuálně probíhá pomocí pole pro odevzdání speciálních kódů</h4>
+                    </div>
+                    </div>
+                    {% endif %}
 
                     <div class="card my-4">
                     <div class="card-body">
@@ -244,7 +251,7 @@
                             points.addMarker(marker);
                         {% endfor %}
 
-                        {% if quest is not None %}
+                        {% if quest is not None and quest.location_history is not None %}
                         var quest = new SMap.Layer.Marker();
                         map.addLayer(quest);
                         quest.enable();
@@ -308,6 +315,23 @@
                             players_to_show.addMarker(marker);
                         {% endfor %}
                         {% endif %}
+
+                        var horn = new SMap.Layer.Marker();
+                        map.addLayer(horn);
+                        horn.enable();
+                        znacka = JAK.mel("div");
+                        obrazek = JAK.mel("img", {src: "{% static '/images/horn.png' %}"});
+                        znacka.appendChild(obrazek);
+                        card = new SMap.Card();
+                        card.getHeader().innerHTML = "<strong>Roh hojnosti</strong>";
+                        options = {
+                            title: "Roh hojnosti",
+                            url: znacka,
+                        };
+                        coords = SMap.Coords.fromWGS84(17.1522389,48.9074975);
+                        marker = new SMap.Marker(coords, 6464, options);
+                        marker.decorate(SMap.Marker.Feature.Card, card);
+                        horn.addMarker(marker);
 
                         var border = new SMap.Layer.Geometry();
                         map.addLayer(border);

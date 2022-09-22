@@ -13,21 +13,14 @@ def create_player(instance, created, **kwargs):
         player = Player.objects.create(
             user=instance
         )
-        if settings.DEBUG:
-            packages = Package.objects.filter(description="TEST")
-            player.packages.add(*packages)
-            points = Point.objects.filter(description="TEST")
-            player.points.add(*points)
-            player.save()
+
 
 @receiver(post_save, sender=Kill)
 def remove_live(instance, created, **kwargs):
     if created:
         victim = instance.victim
         victim.lives -= 1
-        if settings.DEBUG:
-            if victim.lives == 0:
-                victim.lives = 3
+
         victim.save()
 
 

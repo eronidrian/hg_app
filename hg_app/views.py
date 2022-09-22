@@ -20,6 +20,8 @@ from .models import *
 
 def index(request, submit_kill_form=None, submit_package_form=None, submit_point_form=None, submit_special_form=None):
     if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return redirect("hg_app:epic_map")
         if submit_kill_form is None:
             submit_kill_form = SubmitKill(user=request.user)
         if submit_package_form is None:
@@ -28,8 +30,7 @@ def index(request, submit_kill_form=None, submit_package_form=None, submit_point
             submit_point_form = SubmitPoint(user=request.user)
         if submit_special_form is None:
             submit_special_form = SubmitSpecial()
-        if request.user.is_superuser:
-            return redirect("hg_app:epic_map")
+
         player = request.user.player
 
         player_lives = player.lives
@@ -45,12 +46,13 @@ def index(request, submit_kill_form=None, submit_package_form=None, submit_point
         quest = player.quest
         trophy_count = player.trophy_count
         trophy_multiply = 2**trophy_count
-        trophy_players = Player.objects.exclude(user=request.user).exclude(trophy_count=0)
+        trophy_players = Player.objects.exclude(user=request.user).exclude(trophy_count=0).exclude(location_history__isnull=True)
         debug_flag = settings.DEBUG
         if_show_players = AdminConfiguration.objects.get(id=1).show_people
         show_players = Player.objects.exclude(location_history=None)
         turn_off = AdminConfiguration.objects.get(id=1).turn_off
         end_game = AdminConfiguration.objects.get(id=1).end_game
+        hide_location = AdminConfiguration.objects.get(id=1).hide_location
 
         if not player.photo:
             messages.warning(request, "Nemáš nahranou profilovou fotku. Nahraj si ji prosím v záložce \"Změnit údaje\"")
@@ -259,6 +261,8 @@ def submit_special(request):
         verification_code = submit_special_form.cleaned_data['verification_code']
         player = request.user.player
 
+        conf = AdminConfiguration.objects.get(id=1)
+
         print(list(SpecialAction.objects.exclude(used=True).values_list('verification_code', flat=True)))
         if verification_code not in list(SpecialAction.objects.values_list('verification_code', flat=True)):
             Logs.objects.create(
@@ -302,6 +306,14 @@ def submit_special(request):
                 log=f"Hráči byl přidán život speciálním efektem {special_action}",
             )
             messages.info(request, f"Kód úspěšně ověřen. Byl ti přidán jeden život.")
+        elif special_action.effect == "point":
+            player.score += conf.point_score
+            Logs.objects.create(
+                player=request.user.player,
+                brief="special",
+                log=f"Hráč obsadil point {special_action}",
+            )
+            messages.info(request, f"Point úspěšně navštíven")
         player.save()
         special_action.used = True
         special_action.save()

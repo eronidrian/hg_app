@@ -7,3 +7,7 @@ myvenv
 db.sqlite3
 /static
 .DS_Store
+/import_data
+/uploaded_files
+.Trash-1000
+.github
