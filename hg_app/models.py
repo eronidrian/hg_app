@@ -117,7 +117,7 @@ class AdminConfiguration(models.Model):
     show_people = models.BooleanField(default=False, verbose_name="Odkrýt pozice všech hráčů")
     turn_off = models.BooleanField(default=False, verbose_name="Vypnout aplikaci pro hráče")
     hide_after = models.IntegerField(default=3, verbose_name="Schovat vybrané pointy/balíčky za (hodiny)")
-    end_game = models.DateTimeField(default='2022-09-16 14:30:59', verbose_name="Konec hry")
+    end_game = models.DateTimeField(default=datetime.now(), verbose_name="Konec hry")
     hide_location = models.BooleanField(default=False, verbose_name="Skrýt ověřování pointů pomocí polohy")
 
     class Meta:
